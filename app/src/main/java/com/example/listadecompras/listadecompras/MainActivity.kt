@@ -20,7 +20,13 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnInsert.setOnClickListener {
             val productsName = binding.txtProduct.text.toString()
-            adapter.add(productsName)
+
+            if (productsName.isNotEmpty()){
+                adapter.add(productsName)
+                binding.txtProduct.text.clear()
+            } else {
+                binding.txtProduct.error = "Preencha um valor"
+            }
         }
 
     }
