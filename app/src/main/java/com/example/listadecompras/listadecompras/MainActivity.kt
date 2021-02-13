@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         binding.btnInsert.setOnClickListener {
             val productsName = binding.txtProduct.text.toString()
 
-            if (productsName.isNotEmpty()){
+            if (productsName.trim().isNotEmpty()){
                 adapter.add(productsName)
                 binding.txtProduct.text.clear()
             } else {
