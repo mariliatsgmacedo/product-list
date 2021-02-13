@@ -2,4 +2,7 @@
     <string name="app_name">Lista de Compras</string>
     <string name="product_name">Nome do produto</string>
     <string name="insert">Inserir</string>
+    <string name="confirm">Confirmar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="delete_billable_item_message">Deseja remover o item %1$s?</string>
 </resources>

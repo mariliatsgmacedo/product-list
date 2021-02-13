@@ -1,11 +1,13 @@
 package com.example.listadecompras.listadecompras
 
+import android.content.DialogInterface
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.listadecompras.listadecompras.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), BillableItemAdapter.BillableItemListener {
 
     private lateinit var adapter:BillableItemAdapter
 
@@ -14,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main) as ActivityMainBinding
-        adapter = BillableItemAdapter(ArrayList())
+        adapter = BillableItemAdapter(ArrayList(),this)
 
         binding.recycler.adapter = adapter
 
@@ -30,4 +32,26 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+    override fun onBillableItemLongClick(item: String, position: Int) {
+       confirmDeleteItem(item, position)
+    }
+
+    private fun confirmDeleteItem(item: String, position: Int){
+        val builder = AlertDialog.Builder(this)
+        builder.apply {
+            setMessage(getString(R.string.delete_billable_item_message,item))
+            setPositiveButton(R.string.confirm){ dialog, _ ->
+                adapter.removeItem(position)
+                dialog.dismiss()
+            }
+            setNegativeButton(R.string.cancel){ dialog, _ ->
+                dialog.dismiss()
+            }
+        }
+        builder.create().show()
+    }
+
+
+
 }
